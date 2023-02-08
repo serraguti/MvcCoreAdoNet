@@ -1,0 +1,30 @@
+﻿@model List<Hospital>
+
+<h1 class="header center orange-text">Lista Hospitales</h1>
+
+<table class="responsive-table highlight">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Camas</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Hospital hospital in Model)
+        {
+            <tr>
+                <td>@hospital.Nombre</td>
+                <td>@hospital.Direccion</td>
+                <td>@hospital.Telefono</td>
+                <td>@hospital.Camas</td>
+                <td>
+                    @Html.ActionLink("Details", "Detalles", "Hospitales"
+                    , new { idhospital = hospital.IdHospital})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
