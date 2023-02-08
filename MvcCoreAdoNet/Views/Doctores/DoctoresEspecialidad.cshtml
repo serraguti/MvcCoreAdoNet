@@ -1,11 +1,30 @@
 ﻿@model List<Doctor>
 
+@{
+    //AQUI SIEMPRE DEBEMOS CONVERTIR VIEWDATA A SUS TIPOS
+    List<string> especialidades = ViewData["ESPECIALIDADES"] as List<string>;
+}
+
+@section scripts{
+    <script>
+         $(document).ready(function() {
+            $('select').formSelect();
+        });
+    </script>
+}
+
+
+
 <h1>Doctores especialidad</h1>
 
 <form method="post">
-    <input type="text" name="especialidad"
-        placeholder="Especialidad"
-        required/>
+    <label>Seleccione una especilidad: </label>
+    <select name="especialidad">
+        @foreach (string espe in especialidades)
+        {
+            <option value="@espe">@espe</option>
+        }
+    </select>
     <button class="btn-large waves-effect waves-light orange">
         Buscar
     </button>
@@ -15,7 +34,7 @@
     <thead>
         <tr>
             <th>Apellido</th>
-@*            <th>Especialidad</th>*@
+            <th>Especialidad</th>
             <th>Salario</th>
             <th>Hospital</th>
         </tr>
@@ -25,7 +44,7 @@
         {
             <tr>
                 <td>@doc.Apellido</td>
-@*                <td>@doc.Especialidad</td>*@
+                <td>@doc.Especialidad</td>
                 <td>@doc.Salario</td>
                 <td>@doc.IdHospital</td>
             </tr>

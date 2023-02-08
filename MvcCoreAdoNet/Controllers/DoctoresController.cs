@@ -18,10 +18,8 @@ namespace MvcCoreAdoNet.Controllers
             List<Doctor> doctores = this.repo.GetDoctores();
             List<string> especialidades =
                 this.repo.GetEspecialidades();
-            DatosDoctores modelDatos = new DatosDoctores();
-            modelDatos.Especialidades = especialidades;
-            modelDatos.Doctores = doctores;
-            return View(modelDatos);
+            ViewData["ESPECIALIDADES"] = especialidades;
+            return View(doctores);
         }
 
         [HttpPost]
@@ -29,6 +27,9 @@ namespace MvcCoreAdoNet.Controllers
         {
             List<Doctor> doctores =
                 this.repo.GetDoctoresEspecialidad(especialidad);
+            List<string> especialidades =
+                this.repo.GetEspecialidades();
+            ViewData["ESPECIALIDADES"] = especialidades;
             return View(doctores);
         }
     }
