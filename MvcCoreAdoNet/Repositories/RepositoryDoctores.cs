@@ -85,5 +85,34 @@ namespace MvcCoreAdoNet.Repositories
             this.cn.Close();
             return especialidades;
         }
+
+        public List<Doctor> GetDoctoresHospital(int idhospital)
+        {
+            string sql = "SELECT * FROM DOCTOR WHERE HOSPITAL_COD=@IDHOSPITAL";
+            SqlParameter pamid = new SqlParameter("@IDHOSPITAL", idhospital);
+            this.com.Parameters.Add(pamid);
+            this.com.CommandType = CommandType.Text;
+            this.com.CommandText = sql;
+            this.cn.Open();
+            this.reader = this.com.ExecuteReader();
+            List<Doctor> doctores = new List<Doctor>();
+            while (this.reader.Read())
+            {
+                Doctor doc = new Doctor();
+                doc.IdDoctor = int.Parse(this.reader["DOCTOR_NO"].ToString());
+                doc.Apellido = this.reader["APELLIDO"].ToString();
+                doc.Especialidad = this.reader["ESPECIALIDAD"].ToString();
+                doc.Salario = int.Parse(this.reader["SALARIO"].ToString());
+                doc.IdHospital = int.Parse(this.reader["HOSPITAL_COD"].ToString());
+                doctores.Add(doc);
+            }
+            this.reader.Close();
+            this.cn.Close();
+            this.com.Parameters.Clear();
+            return doctores;
+        }
+
+
+
     }
 }

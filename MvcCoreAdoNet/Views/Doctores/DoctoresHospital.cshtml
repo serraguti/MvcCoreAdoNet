@@ -1,0 +1,52 @@
+﻿@model List<Doctor>
+
+@{
+    List<Hospital> hospitales = ViewData["HOSPITALES"] as List<Hospital>;
+}
+
+@section scripts{
+    <script>
+         $(document).ready(function() {
+            $('select').formSelect();
+        });
+    </script>
+}
+
+<h1>Buscador doctores hospital</h1>
+
+<form method="post">
+    <label>Seleccione un hospital</label>
+    <select name="idhospital">
+        @foreach (Hospital h in hospitales)
+        {
+            <option value="@h.IdHospital">@h.Nombre</option>
+        }
+    </select>
+    <button>
+        Buscar doctores
+    </button>
+</form>
+
+@if (Model != null){
+    <table>
+        <thead>
+            <tr>
+                <th>Apellido</th>
+                <th>Especialidad</th>
+                <th>Salario</th>
+                <th>Id Hospital</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Doctor doc in Model)
+            {
+                <tr>
+                    <td>@doc.Apellido</td>
+                    <td>@doc.Especialidad</td>
+                    <td>@doc.Salario</td>
+                    <td>@doc.IdHospital</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
